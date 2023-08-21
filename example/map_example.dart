@@ -1,4 +1,4 @@
-import 'package:cyber_glass_container/cyber_glass_container.dart';
+import 'package:cyber_punk_tool_kit_ui/cyber_glass_container.dart';
 import 'package:flutter/material.dart';
 
 class MapExample extends StatelessWidget {
