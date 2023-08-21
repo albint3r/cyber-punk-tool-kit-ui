@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 
 class SingleCyberContainer extends StatelessWidget {
   const SingleCyberContainer({
-    this.height = 100,
-    this.width = 300,
-    this.primaryColor = Colors.white60,
-    this.secondaryColor = Colors.white10,
-    this.bottomBorder = 3,
+    this.child,
+    required this.height,
+    required this.width,
+    required this.primaryColor,
+    required this.secondaryColor,
+    required this.bottomBorder,
     super.key,
   });
 
+  final Widget? child;
   final double height;
   final double width;
   final Color primaryColor;
@@ -31,21 +33,27 @@ class SingleCyberContainer extends StatelessWidget {
           height: height,
           width: width,
           decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                width: bottomBorder,
-                color: primaryColor.withOpacity(.5),
+              border: Border(
+                bottom: BorderSide(
+                  width: bottomBorder,
+                  color: primaryColor.withOpacity(.5),
+                ),
               ),
-            ),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomCenter,
-              colors: [
-                primaryColor.withOpacity(.3),
-                secondaryColor.withOpacity(.3),
-              ],
-            ),
-          ),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomCenter,
+                colors: [
+                  primaryColor.withOpacity(.3),
+                  secondaryColor.withOpacity(.3),
+                ],
+              ),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(.3),
+                    blurRadius: 25,
+                    spreadRadius: -5)
+              ]),
+          child: child,
         ),
       ),
     );
