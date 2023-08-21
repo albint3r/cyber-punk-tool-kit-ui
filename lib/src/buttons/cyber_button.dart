@@ -1,11 +1,12 @@
-import 'package:cyber_glass_container/src/widgets/single_cyber_container.dart';
 import 'package:flutter/material.dart';
+
+import 'widgets/single_cyber_container.dart';
 
 class CyberContainer extends StatelessWidget {
   const CyberContainer({
     this.child,
     this.height = 50,
-    this.width = 500,
+    this.width = 200,
     this.primaryColorBigContainer = Colors.orange,
     this.secondaryColorBigContainer = Colors.purple,
     this.primaryColorSmallContainer = Colors.white60,
@@ -26,7 +27,7 @@ class CyberContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
-      clipper: CustomClipPath(),
+      clipper: CustomDiagonalClipPath(),
       child: Stack(
         children: [
           SizedBox(
@@ -38,12 +39,12 @@ class CyberContainer extends StatelessWidget {
             bottom: 5,
             left: 0,
             child: SizedBox(
-              child: SingleCyberContainer(
+              child: SingleDiagonalContainer(
                 width: width,
                 height: height,
                 primaryColor: primaryColorBigContainer,
                 secondaryColor: secondaryColorBigContainer,
-                bottomBorder: bottomBorder,
+                bottomBorder: 0,
                 child: child,
               ),
             ),
@@ -51,7 +52,7 @@ class CyberContainer extends StatelessWidget {
           Positioned(
             left: 0,
             bottom: 0,
-            child: SingleCyberContainer(
+            child: SingleDiagonalContainer(
               height: height / 4,
               width: width,
               primaryColor: primaryColorSmallContainer,
@@ -63,7 +64,7 @@ class CyberContainer extends StatelessWidget {
             left: width * .50,
             right: width * .05,
             top: 0,
-            child: SingleCyberContainer(
+            child: SingleDiagonalContainer(
               height: height / 7,
               width: width,
               primaryColor: primaryColorSmallContainer,

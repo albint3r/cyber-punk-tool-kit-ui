@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class SingleCyberContainer extends StatelessWidget {
-  const SingleCyberContainer({
+class SingleDiagonalContainer extends StatelessWidget {
+  const SingleDiagonalContainer({
     this.child,
     required this.height,
     required this.width,
@@ -23,7 +23,7 @@ class SingleCyberContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
-      clipper: CustomClipPath(),
+      clipper: CustomDiagonalClipPath(),
       child: BackdropFilter(
         filter: ImageFilter.blur(
           sigmaX: 8,
@@ -50,8 +50,8 @@ class SingleCyberContainer extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                     color: Colors.black.withOpacity(.3),
-                    blurRadius: 25,
-                    spreadRadius: -5)
+                    blurRadius: 10,
+                    spreadRadius: 15)
               ]),
           child: Center(child: child),
         ),
@@ -60,7 +60,7 @@ class SingleCyberContainer extends StatelessWidget {
   }
 }
 
-class CustomClipPath extends CustomClipper<Path> {
+class CustomDiagonalClipPath extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path_0 = Path();
