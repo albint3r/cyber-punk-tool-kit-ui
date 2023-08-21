@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'widgets/single_cyber_container.dart';
 
-class CyberContainer extends StatelessWidget {
-  const CyberContainer({
+class CyberButton extends StatelessWidget {
+  const CyberButton({
     this.child,
     this.height = 50,
     this.width = 200,

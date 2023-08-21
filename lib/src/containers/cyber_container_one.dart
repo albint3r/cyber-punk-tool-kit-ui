@@ -7,34 +7,84 @@ class CyberContainerOne extends StatelessWidget {
     this.child,
     this.width = 400,
     this.height = 300,
+    this.horizontalPadding,
+    this.topPadding,
+    this.bottomPadding,
+    this.primaryColorLineFrame = const Color(0xffffc200),
+    this.secondaryColorLineFrame = const Color(0xffffffff),
+    this.primaryColorBackground = const Color(0xffffc200),
+    this.secondaryColorBackground = const Color(0xffffffff),
+    this.colorBackgroundLineFrame = const Color.fromARGB(255, 33, 125, 243),
     super.key,
   });
 
   final Widget? child;
   final double width;
   final double height;
+  final double? horizontalPadding;
+  final double? topPadding;
+  final double? bottomPadding;
+
+  final Color primaryColorLineFrame;
+
+  final Color secondaryColorLineFrame;
+
+  final Color primaryColorBackground;
+
+  final Color secondaryColorBackground;
+
+  final Color colorBackgroundLineFrame;
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      //Y
       size: Size(width, height),
-      // ou can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-      painter: RPSCustomPainter(),
+      painter: RPSCustomPainter(
+        primaryColorLineFrame: primaryColorLineFrame,
+        secondaryColorLineFrame: secondaryColorLineFrame,
+        primaryColorBackground: primaryColorBackground,
+        secondaryColorBackground: secondaryColorBackground,
+        colorBackgroundLineFrame: colorBackgroundLineFrame,
+      ),
       child: SizedBox(
         width: width,
         height: height,
-        child: child,
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: horizontalPadding ?? width * .05,
+            right: horizontalPadding ?? width * .05,
+            top: topPadding ?? height * .25,
+            bottom: bottomPadding ?? height * .20,
+          ),
+          child: child,
+        ),
       ),
     );
   }
 }
 
 class RPSCustomPainter extends CustomPainter {
+  RPSCustomPainter({
+    required this.primaryColorLineFrame,
+    required this.secondaryColorLineFrame,
+    required this.primaryColorBackground,
+    required this.secondaryColorBackground,
+    required this.colorBackgroundLineFrame,
+  });
+
+  final Color primaryColorLineFrame;
+
+  final Color secondaryColorLineFrame;
+
+  final Color primaryColorBackground;
+
+  final Color secondaryColorBackground;
+
+  final Color colorBackgroundLineFrame;
 
   @override
   void paint(Canvas canvas, Size size) {
-    // BackGround
+    // LineFrame
 
     final Paint paintFill0 = Paint()
       ..color = const Color.fromARGB(0, 255, 255, 255)
@@ -59,7 +109,7 @@ class RPSCustomPainter extends CustomPainter {
 
     canvas.drawPath(path_0, paintFill0);
 
-    // BackGround
+    // LineFrame
 
     final Paint paintStroke0 = Paint()
       ..color = const Color.fromARGB(255, 0, 0, 0)
@@ -68,26 +118,34 @@ class RPSCustomPainter extends CustomPainter {
       ..strokeCap = StrokeCap.square
       ..strokeJoin = StrokeJoin.bevel;
     paintStroke0.shader = ui.Gradient.linear(
-        Offset(size.width * 0.50, 0),
-        Offset(size.width * 0.50, size.height * 1.00),
-        [Color(0xffffc200), Color(0xffffffff)],
-        [0.00, 1.00]);
+      Offset(size.width * 0.50, 0),
+      Offset(size.width * 0.50, size.height * 1.00),
+      [
+        primaryColorLineFrame,
+        secondaryColorLineFrame,
+      ],
+      [0.00, 1.00],
+    );
 
     canvas.drawPath(path_0, paintStroke0);
 
     // InsideBackGround
 
     final Paint paintFill1 = Paint()
-      ..color = const Color.fromARGB(51, 255, 255, 255)
+      ..color = const Color.fromARGB(120, 255, 255, 255)
       ..style = PaintingStyle.fill
       ..strokeWidth = size.width * 0.00
       ..strokeCap = StrokeCap.butt
       ..strokeJoin = StrokeJoin.miter;
     paintFill1.shader = ui.Gradient.linear(
-        Offset(size.width * 0.50, size.height * 0.03),
-        Offset(size.width * 0.50, size.height * 0.97),
-        [Color(0xffffc700), Color(0xffffffff)],
-        [0.00, 1.00]);
+      Offset(size.width * 0.50, size.height * 0.03),
+      Offset(size.width * 0.50, size.height * 0.97),
+      [
+        primaryColorBackground,
+        secondaryColorBackground,
+      ],
+      [0.00, 1.00],
+    );
 
     final Path path_1 = Path();
     path_1.moveTo(size.width * 0.0259750, size.height * 0.0346000);
@@ -108,7 +166,7 @@ class RPSCustomPainter extends CustomPainter {
     // InsideBackGround
 
     final Paint paintStroke1 = Paint()
-      ..color = const Color.fromARGB(255, 33, 125, 243)
+      ..color = colorBackgroundLineFrame
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0
       ..strokeCap = StrokeCap.square
