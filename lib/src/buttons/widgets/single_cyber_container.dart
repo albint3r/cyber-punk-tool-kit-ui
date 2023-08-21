@@ -33,26 +33,28 @@ class SingleDiagonalContainer extends StatelessWidget {
           height: height,
           width: width,
           decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  width: bottomBorder,
-                  color: primaryColor.withOpacity(.5),
-                ),
+            border: Border(
+              bottom: BorderSide(
+                width: bottomBorder,
+                color: primaryColor.withOpacity(.5),
               ),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomCenter,
-                colors: [
-                  primaryColor.withOpacity(.2),
-                  secondaryColor.withOpacity(.2),
-                ],
-              ),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black.withOpacity(.3),
-                    blurRadius: 10,
-                    spreadRadius: 15)
-              ]),
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomCenter,
+              colors: [
+                primaryColor.withOpacity(.2),
+                secondaryColor.withOpacity(.2),
+              ],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(.3),
+                blurRadius: 10,
+                spreadRadius: 15,
+              )
+            ],
+          ),
           child: Center(child: child),
         ),
       ),
@@ -63,15 +65,15 @@ class SingleDiagonalContainer extends StatelessWidget {
 class CustomDiagonalClipPath extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    Path path_0 = Path();
-    path_0.moveTo(size.width*0.1000000,0);
-    path_0.lineTo(size.width*-0.0020000,size.height);
-    path_0.lineTo(size.width*0.9000000,size.height);
-    path_0.lineTo(size.width,0);
+    final Path path_0 = Path();
+    path_0.moveTo(size.width * 0.1000000, 0);
+    path_0.lineTo(size.width * -0.0020000, size.height);
+    path_0.lineTo(size.width * 0.9000000, size.height);
+    path_0.lineTo(size.width, 0);
 
     return path_0;
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

@@ -1,4 +1,54 @@
-include: package:flutter_lints/flutter.yaml
+include: package:lint/analysis_options.yaml
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+analyzer:
+  enable-experiment:
+    - records
+  plugins:
+    - dart_code_metrics
+  strong-mode:
+  errors:
+    avoid_web_libraries_in_flutter: error
+    invalid_annotation_target: ignore
+  exclude:
+    - "lib/**.freezed.dart"
+    - "lib/**.g.dart"
+    - "test/**.mocks.dart"
+    - "lib/gen/**"
+    - "lib/injection.config.dart"
+
+linter:
+  rules:
+    close_sinks: false
+    file_names: false
+    prefer_relative_imports: true
+    always_use_package_imports: false
+    avoid_classes_with_only_static_members: false
+    avoid_unused_constructor_parameters: false
+
+dart_code_metrics:
+  rules:
+    - prefer-single-widget-per-file:
+        ignore-private-widgets: true
+    - member-ordering:
+        order:
+          - constructors
+          - public-fields
+          - private-fields
+          - public-getters
+          - private-getters
+          - public-setters
+          - private-setters
+          - public-methods
+          - private-methods
+    - prefer-moving-to-variable:
+        allowed-duplicated-chains: 3
+    # - prefer-extracting-callbacks:
+    #     allowed-line-count: 3
+    - prefer-match-file-name
+    - prefer-immediate-return
+    - prefer-correct-edge-insets-constructor
+    - prefer-const-border-radius
+    - always-remove-listener
+    - avoid-shrink-wrap-in-lists
+    - prefer-commenting-analyzer-ignores
+    - list-all-equatable-fields
