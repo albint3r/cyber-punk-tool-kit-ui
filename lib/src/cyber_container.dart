@@ -29,11 +29,9 @@ class CyberContainer extends StatelessWidget {
       clipper: CustomClipPath(),
       child: Stack(
         children: [
-          Container(
-            // color: Colors.black,
+          SizedBox(
             width: width,
             height: height,
-
           ),
           Positioned(
             top: 5,

@@ -26,8 +26,8 @@ class SingleCyberContainer extends StatelessWidget {
       clipper: CustomClipPath(),
       child: BackdropFilter(
         filter: ImageFilter.blur(
-          sigmaX: 15,
-          sigmaY: 15,
+          sigmaX: 8,
+          sigmaY: 8,
         ),
         child: Container(
           height: height,
@@ -43,8 +43,8 @@ class SingleCyberContainer extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomCenter,
                 colors: [
-                  primaryColor.withOpacity(.3),
-                  secondaryColor.withOpacity(.3),
+                  primaryColor.withOpacity(.2),
+                  secondaryColor.withOpacity(.2),
                 ],
               ),
               boxShadow: [
@@ -53,7 +53,7 @@ class SingleCyberContainer extends StatelessWidget {
                     blurRadius: 25,
                     spreadRadius: -5)
               ]),
-          child: child,
+          child: Center(child: child),
         ),
       ),
     );
@@ -64,10 +64,10 @@ class CustomClipPath extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path_0 = Path();
-    path_0.moveTo(size.width * 0.0408333, size.height * -0.0014286);
-    path_0.lineTo(0, size.height);
-    path_0.lineTo(size.width * 0.9576667, size.height * 0.9991429);
-    path_0.lineTo(size.width * 1.0005000, size.height * -0.0017143);
+    path_0.moveTo(size.width*0.1000000,0);
+    path_0.lineTo(size.width*-0.0020000,size.height);
+    path_0.lineTo(size.width*0.9000000,size.height);
+    path_0.lineTo(size.width,0);
 
     return path_0;
   }
