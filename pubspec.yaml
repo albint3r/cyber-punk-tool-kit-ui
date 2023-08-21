@@ -2,6 +2,7 @@ name: cyber_punk_tool_kit_ui
 description: This container have a glassy design with a touch of  cyber-punk
 version: 0.0.1
 homepage: https://github.com/albint3r/cyber-punk-tool-kit-ui.git
+license: MIT
 
 environment:
   sdk: '>=3.0.3 <4.0.0'
