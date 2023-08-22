@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
-class CyberContainerTwo extends StatelessWidget {
+class CyberContainerTwo extends StatefulWidget {
   const CyberContainerTwo({
     this.child,
     this.width = 400,
@@ -13,6 +13,7 @@ class CyberContainerTwo extends StatelessWidget {
     this.primaryColorBackground = const Color(0xffffc200),
     this.secondaryColorBackground = const Color(0xffffffff),
     this.colorBackgroundLineFrame = const Color.fromARGB(255, 33, 125, 243),
+    this.isNotAnimated = false,
     super.key,
   });
 
@@ -20,6 +21,7 @@ class CyberContainerTwo extends StatelessWidget {
   final double width;
   final double height;
   final double? padding;
+  final bool isNotAnimated;
 
   final Color primaryColorLineFrame;
 
@@ -32,24 +34,75 @@ class CyberContainerTwo extends StatelessWidget {
   final Color colorBackgroundLineFrame;
 
   @override
+  State<CyberContainerTwo> createState() => _CyberContainerTwoState();
+}
+
+class _CyberContainerTwoState extends State<CyberContainerTwo>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<Color?> _colorAnimationPrimary;
+  late final Animation<Color?> _colorAnimationSecondary;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        seconds: 2,
+      ),
+    );
+
+    _colorAnimationPrimary = ColorTween(
+      begin: widget.secondaryColorBackground,
+      end: widget.primaryColorBackground,
+    ).animate(
+      _controller,
+    );
+    _colorAnimationSecondary = ColorTween(
+      begin: widget.primaryColorBackground,
+      end: widget.secondaryColorBackground,
+    ).animate(
+      _controller,
+    );
+    if (widget.isNotAnimated) return;
+    _controller.forward();
+    _controller.repeat(
+      reverse: true,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: Size(width, height),
-      painter: RPSCustomPainter(
-        primaryColorLineFrame: primaryColorLineFrame,
-        secondaryColorLineFrame: secondaryColorLineFrame,
-        primaryColorBackground: primaryColorBackground,
-        secondaryColorBackground: secondaryColorBackground,
-        colorBackgroundLineFrame: colorBackgroundLineFrame,
-      ),
-      child: SizedBox(
-        width: width,
-        height: height,
-        child: Padding(
-          padding: EdgeInsets.all(padding ?? width * .125),
-          child: child,
-        ),
-      ),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return CustomPaint(
+          size: Size(widget.width, widget.height),
+          painter: RPSCustomPainter(
+            primaryColorLineFrame: widget.primaryColorLineFrame,
+            secondaryColorLineFrame: widget.secondaryColorLineFrame,
+            primaryColorBackground: widget.isNotAnimated
+                ? widget.primaryColorBackground
+                : (_colorAnimationPrimary.value ??
+                widget.primaryColorBackground),
+            secondaryColorBackground: widget.isNotAnimated
+                ? widget.secondaryColorBackground
+                : (_colorAnimationSecondary.value ??
+                    widget.secondaryColorBackground),
+            colorBackgroundLineFrame: widget.colorBackgroundLineFrame,
+          ),
+          child: SizedBox(
+            width: widget.width,
+            height: widget.height,
+            child: Padding(
+              padding: EdgeInsets.all(widget.padding ?? widget.width * .125),
+              child: widget.child,
+            ),
+          ),
+        );
+      },
     );
   }
 }

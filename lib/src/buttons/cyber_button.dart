@@ -47,10 +47,12 @@ class _CyberButtonState extends State<CyberButton>
       ),
     );
 
-    _animationBottomFrame =
-        Tween<double>(begin: widget.width, end: 0).animate(_controller);
-    _animationTopFrame =
-        Tween<double>(begin: 0, end: widget.width).animate(_controller);
+    _animationBottomFrame = Tween<double>(begin: widget.width, end: 0).animate(
+      _controller,
+    );
+    _animationTopFrame = Tween<double>(begin: 0, end: widget.width).animate(
+      _controller,
+    );
 
     _controller.forward();
   }
