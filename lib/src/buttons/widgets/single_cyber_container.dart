@@ -1,8 +1,17 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-
+/// A widget that creates a single diagonal container with gradient backgrounds and a blurred effect.
+///
+/// The [SingleDiagonalContainer] widget draws a container with a single diagonal line and supports
+/// gradient backgrounds, a blurred effect, and border styling.
 class SingleDiagonalContainer extends StatelessWidget {
+  /// Creates a [SingleDiagonalContainer] instance.
+  ///
+  /// The [child] is the widget placed within the container.
+  /// The [height] and [width] define the dimensions of the container.
+  /// The [primaryColor] and [secondaryColor] define the gradient colors of the background.
+  /// The [bottomBorder] defines the width of the bottom border.
   const SingleDiagonalContainer({
     this.child,
     required this.height,

@@ -2,7 +2,24 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
+import 'custom_painters/rps_custom_painter_two.dart';
+/// A widget that displays an artistically designed container with animations.
+///
+/// The [CyberContainerTwo] widget uses [RPSCustomPainterTwo] to create a visually appealing
+/// animated container with an artistic design. It supports gradient backgrounds and animated color transitions.
 class CyberContainerTwo extends StatefulWidget {
+  /// Creates a [CyberContainerTwo] widget.
+  ///
+  /// The container's appearance and animation can be customized using various properties:
+  /// - [child]: The child widget contained within the container.
+  /// - [width]: The width of the container.
+  /// - [height]: The height of the container.
+  /// - [padding]: Padding value for the container's content.
+  /// - [isNotAnimated]: If `true`, animations are disabled.
+  /// - [animationDurationSecs]: Duration in seconds for the animation.
+  /// - [primaryColorLineFrame], [secondaryColorLineFrame]: Gradient colors for lines.
+  /// - [primaryColorBackground], [secondaryColorBackground]: Gradient colors for background.
+  /// - [colorBackgroundLineFrame]: Color for line frames within the background.
   const CyberContainerTwo({
     this.child,
     this.width = 400,
@@ -11,9 +28,10 @@ class CyberContainerTwo extends StatefulWidget {
     this.primaryColorLineFrame = const Color(0xffffc200),
     this.secondaryColorLineFrame = const Color(0xffffffff),
     this.primaryColorBackground = const Color(0xffffc200),
-    this.secondaryColorBackground = const Color(0xffffffff),
+    this.secondaryColorBackground = const Color(0xffa300f6),
     this.colorBackgroundLineFrame = const Color.fromARGB(255, 33, 125, 243),
     this.isNotAnimated = false,
+    this.animationDurationSecs = 10,
     super.key,
   });
 
@@ -22,6 +40,7 @@ class CyberContainerTwo extends StatefulWidget {
   final double height;
   final double? padding;
   final bool isNotAnimated;
+  final int animationDurationSecs;
 
   final Color primaryColorLineFrame;
 
@@ -49,11 +68,11 @@ class _CyberContainerTwoState extends State<CyberContainerTwo>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(
-        seconds: 2,
+      duration: Duration(
+        seconds: widget.animationDurationSecs,
       ),
     );
-
+    if (widget.isNotAnimated) return;
     _colorAnimationPrimary = ColorTween(
       begin: widget.secondaryColorBackground,
       end: widget.primaryColorBackground,
@@ -66,7 +85,7 @@ class _CyberContainerTwoState extends State<CyberContainerTwo>
     ).animate(
       _controller,
     );
-    if (widget.isNotAnimated) return;
+
     _controller.forward();
     _controller.repeat(
       reverse: true,
@@ -80,13 +99,13 @@ class _CyberContainerTwoState extends State<CyberContainerTwo>
       builder: (context, child) {
         return CustomPaint(
           size: Size(widget.width, widget.height),
-          painter: RPSCustomPainter(
+          painter: RPSCustomPainterTwo(
             primaryColorLineFrame: widget.primaryColorLineFrame,
             secondaryColorLineFrame: widget.secondaryColorLineFrame,
             primaryColorBackground: widget.isNotAnimated
                 ? widget.primaryColorBackground
                 : (_colorAnimationPrimary.value ??
-                widget.primaryColorBackground),
+                    widget.primaryColorBackground),
             secondaryColorBackground: widget.isNotAnimated
                 ? widget.secondaryColorBackground
                 : (_colorAnimationSecondary.value ??
@@ -104,100 +123,5 @@ class _CyberContainerTwoState extends State<CyberContainerTwo>
         );
       },
     );
-  }
-}
-
-class RPSCustomPainter extends CustomPainter {
-  RPSCustomPainter({
-    required this.primaryColorLineFrame,
-    required this.secondaryColorLineFrame,
-    required this.primaryColorBackground,
-    required this.secondaryColorBackground,
-    required this.colorBackgroundLineFrame,
-  });
-
-  final Color primaryColorLineFrame;
-
-  final Color secondaryColorLineFrame;
-
-  final Color primaryColorBackground;
-
-  final Color secondaryColorBackground;
-
-  final Color colorBackgroundLineFrame;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Background Menu
-
-    final Paint paintStroke0 = Paint()
-      ..color = const Color.fromARGB(255, 243, 33, 233)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width * 0.00
-      ..strokeCap = StrokeCap.butt
-      ..strokeJoin = StrokeJoin.bevel;
-    paintStroke0.shader = ui.Gradient.linear(
-      Offset(size.width * 0.50, size.height * -0.00),
-      Offset(size.width * 0.50, size.height),
-      [primaryColorLineFrame, secondaryColorLineFrame],
-      [0.00, 1.00],
-    );
-
-    final Path path_0 = Path();
-    path_0.moveTo(0, 0);
-    path_0.lineTo(0, size.height);
-    path_0.lineTo(size.width * 0.7488451, size.height);
-    path_0.lineTo(size.width * 0.9503835, size.height * 0.9284341);
-    path_0.lineTo(size.width * 0.9512289, size.height * 0.8582994);
-    path_0.lineTo(size.width * 0.9983250, size.height * 0.8574143);
-    path_0.lineTo(size.width * 0.9975000, size.height * 0.0009286);
-    path_0.lineTo(size.width * 0.0029000, size.height * -0.0012286);
-    path_0.close();
-
-    canvas.drawPath(path_0, paintStroke0);
-
-    // InsidBackground Menu
-
-    final Paint paintFill1 = Paint()
-      ..color = const Color.fromARGB(124, 255, 255, 255)
-      ..style = PaintingStyle.fill
-      ..strokeWidth = size.width * 0.00
-      ..strokeCap = StrokeCap.butt
-      ..strokeJoin = StrokeJoin.miter;
-    paintFill1.shader = ui.Gradient.linear(
-      Offset(size.width * 0.50, size.height * 0.01),
-      Offset(size.width * 0.50, size.height * 0.99),
-      [primaryColorBackground, secondaryColorBackground],
-      [0.00, 1.00],
-    );
-
-    final Path path_1 = Path();
-    path_1.moveTo(size.width * 0.0264109, size.height * 0.0137866);
-    path_1.lineTo(size.width * 0.0287356, size.height * 0.9848954);
-    path_1.lineTo(size.width * 0.7393969, size.height * 0.9862879);
-    path_1.lineTo(size.width * 0.9320323, size.height * 0.9167738);
-    path_1.lineTo(size.width * 0.9328399, size.height * 0.8486523);
-    path_1.lineTo(size.width * 0.9778750, size.height * 0.8491714);
-    path_1.lineTo(size.width * 0.9770589, size.height * 0.0158897);
-    path_1.lineTo(size.width * 0.0264109, size.height * 0.0137866);
-    path_1.close();
-
-    canvas.drawPath(path_1, paintFill1);
-
-    // InsidBackground Menu
-
-    final Paint paintStroke1 = Paint()
-      ..color = colorBackgroundLineFrame
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width * 0.00
-      ..strokeCap = StrokeCap.butt
-      ..strokeJoin = StrokeJoin.bevel;
-
-    canvas.drawPath(path_1, paintStroke1);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }

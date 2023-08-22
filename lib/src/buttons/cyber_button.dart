@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
 
 import 'widgets/single_cyber_container.dart';
-
+/// A widget that creates a visually appealing diagonal cyber button with animations.
+///
+/// The [CyberButton] widget uses gradient backgrounds and diagonal elements to create
+/// an engaging button with animations. It supports tap interactions.
 class CyberButton extends StatefulWidget {
+  /// Creates a [CyberButton] widget.
+  ///
+  /// The button appearance and behavior can be customized using various properties:
+  /// - [child]: The child widget contained within the button.
+  /// - [height]: The height of the button.
+  /// - [width]: The width of the button.
+  /// - [primaryColorBigContainer], [secondaryColorBigContainer]: Gradient colors for the main container.
+  /// - [primaryColorSmallContainer], [secondaryColorSmallContainer]: Gradient colors for the detail containers.
+  /// - [bottomBorder]: Width of the bottom border.
+  /// - [onTap]: Callback function when the button is tapped.
   const CyberButton({
     this.child,
     this.height = 50,
