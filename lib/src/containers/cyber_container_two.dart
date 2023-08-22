@@ -1,8 +1,7 @@
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 
 import 'custom_painters/rps_custom_painter_two.dart';
+
 /// A widget that displays an artistically designed container with animations.
 ///
 /// The [CyberContainerTwo] widget uses [RPSCustomPainterTwo] to create a visually appealing
